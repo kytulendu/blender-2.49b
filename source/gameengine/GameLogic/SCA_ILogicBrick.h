@@ -35,6 +35,8 @@
 #include "GEN_Map.h"
 #include "GEN_HashedPtr.h"
 
+#include <cstddef>
+
 class SCA_ILogicBrick : public CValue
 {
 	Py_Header;

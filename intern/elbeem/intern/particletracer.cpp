@@ -231,7 +231,7 @@ void ParticleTracer::checkDumpTextPositions(double simtime) {
 		if(mDumpTextFile.length()>1) {   
 			boutfilename << mDumpTextFile <<  ".cpart2"; 
 		} else {                           
-			boutfilename << boutfilename <<"_particles" <<  ".cpart2"; 
+			boutfilename << boutfilename.str() <<"_particles" <<  ".cpart2";
 		}
 		debMsgStd("ParticleTracer::checkDumpTextPositions",DM_MSG,"T-Dumping: "<< this->getName() <<", particles:"<<mParts.size()<<" "<< " to "<<boutfilename.str()<<" " , 7);
 

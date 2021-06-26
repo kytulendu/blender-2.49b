@@ -24,6 +24,7 @@
 #ifndef __MEM_Allocator_h_included__
 #define __MEM_Allocator_h_included__ 1
 
+#include <cstddef>
 #include "guardedalloc/MEM_guardedalloc.h"
 #include "guardedalloc/BLO_sys_types.h"
 

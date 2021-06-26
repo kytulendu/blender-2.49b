@@ -33,6 +33,8 @@
 #include <config.h>
 #endif
 
+#include <cstddef>
+
 DummyPhysicsEnvironment::DummyPhysicsEnvironment()
 {
 	// create physicsengine data

@@ -203,7 +203,7 @@ SCA_IActuator* SCA_PythonController::LinkedActuatorFromPy(PyObject *value)
 	PyErr_Format(PyExc_ValueError, "'%s' not in this python controllers actuator list", PyString_AsString(value_str));
 	Py_DECREF(value_str);
 	
-	return false;
+	return NULL;
 }
 
 /* warning, self is not the SCA_PythonController, its a PyObjectPlus_Proxy */

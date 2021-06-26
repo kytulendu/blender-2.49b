@@ -35,6 +35,7 @@
 #include "SCA_IController.h"
 
 #include <vector>
+#include <cstddef>
 
 /**
  * Interface Class for all logic Sensors. Implements

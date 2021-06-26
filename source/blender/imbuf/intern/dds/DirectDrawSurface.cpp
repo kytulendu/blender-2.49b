@@ -858,8 +858,8 @@ void DirectDrawSurface::mipmap(Image * img, uint face, uint mipmap)
 	// Compute width and height.
 	for (uint m = 0; m < mipmap; m++)
 	{
-		w = max(1U, w / 2);
-		h = max(1U, h / 2);
+		w = MAX(1U, w / 2);
+		h = MAX(1U, h / 2);
 	}
 	
 	img->allocate(w, h);
@@ -963,9 +963,9 @@ void DirectDrawSurface::readBlockImage(Image * img)
 			readBlock(&block);
 			
 			// Write color block.
-			for (uint y = 0; y < min(4U, h-4*by); y++)
+			for (uint y = 0; y < MIN(4U, h-4*by); y++)
 			{
-				for (uint x = 0; x < min(4U, w-4*bx); x++)
+				for (uint x = 0; x < MIN(4U, w-4*bx); x++)
 				{
 					img->pixel(4*bx+x, 4*by+y) = block.color(x, y);
 				}
@@ -980,7 +980,7 @@ static Color32 buildNormal(uint8 x, uint8 y)
 	float ny = 2 * (y / 255.0f) - 1;
 	float nz = 0.0f;
 	if (1 - nx*nx - ny*ny > 0) nz = sqrt(1 - nx*nx - ny*ny);
-	uint8 z = clamp(int(255.0f * (nz + 1) / 2.0f), 0, 255);
+	uint8 z = CLAMP(int(255.0f * (nz + 1) / 2.0f), 0, 255);
 	
 	return Color32(x, y, z);
 }
@@ -1085,9 +1085,9 @@ uint DirectDrawSurface::mipmapSize(uint mipmap) const
 	
 	for (uint m = 0; m < mipmap; m++)
 	{
-		w = max(1U, w / 2);
-		h = max(1U, h / 2);
-		d = max(1U, d / 2);
+		w = MAX(1U, w / 2);
+		h = MAX(1U, h / 2);
+		d = MAX(1U, d / 2);
 	}
 
 	if (header.pf.flags & DDPF_FOURCC)

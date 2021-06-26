@@ -111,6 +111,12 @@ using std::string;
 #endif // ELBEEM_PLUGIN==1
 
 
+/* absolute value */
+template < class T >
+inline T
+ABS( T a )
+{ return (0 < a) ? a : -a ; }
+
 // basic inlined vector class
 template<class Scalar>
 class ntlVector3Dim

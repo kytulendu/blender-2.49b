@@ -18,6 +18,7 @@ subject to the following restrictions:
 #define _BT_SOFT_BODY_INTERNALS_H
 
 #include "btSoftBody.h"
+#include <string.h>
 
 #include "LinearMath/btQuickprof.h"
 #include "BulletCollision/BroadphaseCollision/btBroadphaseInterface.h"
@@ -171,8 +172,7 @@ public:
 template <typename T>
 static inline void			ZeroInitialize(T& value)
 {
-	static const T	zerodummy;
-	value=zerodummy;
+	memset(&value,0,sizeof(T));
 }
 //
 template <typename T>

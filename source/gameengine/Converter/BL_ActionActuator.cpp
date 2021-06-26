@@ -31,6 +31,7 @@
 #include <math.h>
 #else
 #include <cmath>
+#include <cstddef>
 #endif
 
 #include "SCA_LogicManager.h"
