@@ -41,6 +41,7 @@
 	#define write _write
 #endif
 
+#include <errno.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
@@ -753,7 +754,7 @@ void BKE_undo_save_quit(void)
 {
 	UndoElem *uel;
 	MemFileChunk *chunk;
-	int file;
+	int file = -1;
 	char str[FILE_MAXDIR+FILE_MAXFILE];
 	
 	if( (U.uiflag & USER_GLOBALUNDO)==0) return;
@@ -767,12 +768,20 @@ void BKE_undo_save_quit(void)
 	/* no undo state to save */
 	if(undobase.first==undobase.last) return;
 		
-	BLI_make_file_string("/", str, btempdir, "quit.blend");
+	BLI_make_file_string("/", str, BLI_gethome(), ".blender/quit.blend");
 
-	file = open(str,O_BINARY+O_WRONLY+O_CREAT+O_TRUNC, 0666);
-	if(file == -1) {
-		error("Unable to save %s, check you have permissions", str);
-		return;
+	int flags = O_BINARY+O_WRONLY+O_TRUNC+O_EXCL+O_CREAT;
+
+	while(file == -1) {
+		file = open(str,flags,0666);
+		if(file == -1) {
+			if(errno == EEXIST) {
+			flags ^= O_CREAT;
+			} else {
+			error("Unable to save %s, check you have permissions", str);
+			return;
+			}
+		}
 	}
 
 	chunk= uel->memfile.chunks.first;

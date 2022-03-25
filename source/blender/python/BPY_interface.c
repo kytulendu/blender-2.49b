@@ -236,6 +236,11 @@ void BPY_start_python( int argc, char **argv )
 	Py_Initialize(  );
 	
 	PySys_SetArgv( argc_copy, argv_copy );
+
+	/* Sanitize sys.path to prevent relative imports loading modules in
+	   the current working directory */
+	PyRun_SimpleString("import sys; sys.path = filter(None, sys.path)");
+
 	/* Initialize thread support (also acquires lock) */
 	PyEval_InitThreads();
 	
