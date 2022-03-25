@@ -381,7 +381,8 @@ void BLI_adddirstrings()
 			struct passwd *pwuser;
 			pwuser = getpwuid(files[num].s.st_uid);
 			if ( pwuser ) {
-			strcpy(files[num].owner, pwuser->pw_name);
+			  strncpy(files[num].owner, pwuser->pw_name, sizeof(files[num].owner)-1);
+                          files[num].owner[sizeof(files[num].owner)-1] = '\0';
 			} else {
 				sprintf(files[num].owner, "%d", files[num].s.st_uid);
             }
