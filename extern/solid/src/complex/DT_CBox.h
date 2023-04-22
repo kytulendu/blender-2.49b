@@ -25,6 +25,7 @@
 #define DT_CBOX_H
 
 #include "MT_BBox.h"
+#include "DT_Sphere.h"
 
 struct DT_CBox {
     DT_CBox() {}
@@ -129,6 +130,20 @@ inline DT_CBox operator-(const DT_CBox& b1, const DT_CBox& b2)
 {
     return DT_CBox(b1.getCenter() - b2.getCenter(), 
                    b1.getExtent() + b2.getExtent());
+}
+
+inline DT_CBox computeCBox(const DT_Convex *p)
+{
+    return DT_CBox(p->bbox());
+}
+
+inline DT_CBox computeCBox(MT_Scalar margin, const MT_Transform& xform)
+{
+    const MT_Matrix3x3& basis = xform.getBasis();
+    return DT_CBox(MT_Point3(MT_Scalar(0.0), MT_Scalar(0.0), MT_Scalar(0.0)),
+                   MT_Vector3(basis[0].length() * margin,
+                              basis[1].length() * margin,
+                              basis[2].length() * margin));
 }
 
 #endif
